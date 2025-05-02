@@ -6,7 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict
 
-import pandas as pd
+import polars as pd
+import uuid
 
 CARBALL_COMMAND = '{} -i "{}" -o "{}" parquet'
 
@@ -83,7 +84,8 @@ class ParsedReplay:
 
         if not replay_dir.is_dir():
             # Assume it's a replay file
-            with tempfile.TemporaryDirectory() as temp_dir:
+            temp_dir_generated = os.path.join('/kaggle/temp', str(uuid.uuid4()))
+            with temp_dir_generated as temp_dir:
                 process_replay(replay_dir, temp_dir, carball_path=carball_path, skip_existing=False)
                 replay_dir = Path(temp_dir) / replay_dir.stem
                 return load_files(replay_dir)

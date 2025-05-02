@@ -9,7 +9,7 @@ from typing import Dict
 import polars as pd
 import uuid
 
-CARBALL_COMMAND = '{} -i "{}" -o "{}" parquet'
+CARBALL_COMMAND = './{} -i "{}" -o "{}" parquet'
 
 ENV = os.environ.copy()
 ENV["NO_COLOR"] = "1"
